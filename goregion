@@ -1,0 +1,12 @@
+#!/bin/bash
+#curl -s https://raw.githubusercontent.com/SteamDatabase/SteamTracking/master/Random/NetworkDatagramConfig.json | jq -r '.pops[] | .relay_addresses'
+
+mmips="https://raw.githubusercontent.com/SteamDatabase/SteamTracking/master/Random/NetworkDatagramConfig.json"
+
+#sample='[{"name":"foo"},{"name":"bar"}]'
+for row in $(curl -s $mmips | jq -r '.pops[] | @base64'); do
+    _jq() {
+     echo ${row} | base64 --decode | jq -r ${1}
+    }
+   printf "\n$(_jq '.desc'):\n$(_jq '.relay_addresses[]')\n"
+done
