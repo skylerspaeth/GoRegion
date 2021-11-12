@@ -1,7 +1,7 @@
 {
-    "hash": "657e23c48e195d7b41a87525416c85ee",
-    "regions": {
-        "euw": {
+    "hash": "00a597208d890007cfae7c3578e2bd4f",
+    "regions": [
+        {
             "regionCode": "euw",
             "regionName": "Europe West",
             "cities": [
@@ -23,7 +23,7 @@
                 }
             ]
         },
-        "eue": {
+        {
             "regionCode": "eue",
             "regionName": "Europe East",
             "cities": [
@@ -32,10 +32,13 @@
                 },
                 {
                     "cityName": "Vienna", "airportCode": "vie"
+                },
+                {
+                    "cityName": "Sofia", "airportCode": "sof"
                 }
             ]
         },
-        "eun": {
+        {
             "regionCode": "eun",
             "regionName": "Europe North",
             "cities": [
@@ -45,7 +48,7 @@
                 }
             ]
         },
-        "nan": {
+        {
             "regionCode": "nan",
             "regionName": "North America North",
             "cities": [
@@ -54,7 +57,7 @@
                 }
             ]
         },
-        "nae": {
+        {
             "regionCode": "nae",
             "regionName": "North America East",
             "cities": [
@@ -66,7 +69,7 @@
                 }
             ]
         },
-        "nas": {
+        {
             "regionCode": "nas",
             "regionName": "North America South",
             "cities": [
@@ -75,7 +78,7 @@
                 }
             ]
         },
-        "naw": {
+        {
             "regionCode": "naw",
             "regionName": "North America West",
             "cities": [
@@ -87,7 +90,7 @@
                 }
             ]
         },
-        "sam": {
+        {
             "regionCode": "sam",
             "regionName": "South America",
             "cities": [
@@ -105,7 +108,7 @@
                 }
             ]
         },
-        "ind": {
+        {
             "regionCode": "ind",
             "regionName": "India",
             "cities": [
@@ -117,7 +120,7 @@
                 }
             ]
         },
-        "jap": {
+        {
             "regionCode": "jap",
             "regionName": "Japan",
             "cities": [
@@ -127,7 +130,7 @@
                 }
             ]
         },
-        "eas": {
+        {
             "regionCode": "eas",
             "regionName": "East Asia",
             "cities": [
@@ -162,7 +165,7 @@
                 }
             ]
         },
-        "mie": {
+        {
             "regionCode": "mie",
             "regionName": "Middle East",
             "cities": [
@@ -171,7 +174,7 @@
                 }
             ]
         },
-        "afr": {
+        {
             "regionCode": "afr",
             "regionName": "Africa",
             "cities": [
@@ -180,7 +183,7 @@
                 }
             ]
         },
-        "aus": {
+        {
             "regionCode": "aus",
             "regionName": "Australia",
             "cities": [
@@ -189,5 +192,5 @@
                 }
             ]
         }
-    }
+    ]
 }
