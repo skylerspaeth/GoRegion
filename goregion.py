@@ -17,10 +17,31 @@ networkDiagramPath = "airports.json"
 
 #iptables interface function
 def iptc(operation, addresses):
-    if (operation == "block"):
+
+    if (operation == "createChain"):
+        print("Creating iptables chain \"goregion\"...")
+        print("Successfully created chain." if os.system("sudo iptables -N goregion") == 0 else "Error creating chain.")
+
+    elif (operation == "block"):
         print("Blocking the following addresses not contained within selected region:", ", ".join(addresses))
         for address in addresses:
             os.system("sudo iptables -A INPUT -s {} -j DROP".format(address))
+
+    elif (operation == "allow"):
+        print("Unblocking the following addresses:", ", ".join(addresses))
+        for address in addresses:
+            os.system("sudo iptables -D INPUT -s {} -j DROP".format(address))
+
+    elif (operation == "reset"):
+        print("Resetting all goregion rules...")
+        print("Successfully reset chain." if os.system("sudo iptables -F goregion") == 0 else "Error resetting chain.")
+
+#check if iptables chain exists and create it if not
+chainPresent = True if os.system("sudo iptables -S | grep -Fx -- '-N goregion'") == 0 else False
+if not chainPresent:
+    iptc("createChain", None)
+
+iptc("reset", None)
 
 with urlopen("https://raw.githubusercontent.com/SteamDatabase/SteamTracking/master/Random/NetworkDatagramConfig.json") as jsonResponse:
     data = json.loads(jsonResponse.read())
