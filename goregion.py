@@ -18,19 +18,21 @@ networkDiagramPath = "airports.json"
 #iptables interface function
 def iptc(operation, addresses):
 
-    if (operation == "createChain"):
+    if (operation == "setupChain"):
         print("Creating iptables chain \"goregion\"...")
-        print("Successfully created chain." if os.system("sudo iptables -N goregion") == 0 else "Error creating chain.")
+        tableCreateCode = 0 if chainPresent else os.system("sudo iptables -N goregion")
+        tableBindCode = 0 if chainBound else os.system("sudo iptables -A INPUT -j goregion")
+        print("Successfully created chain." if tableCreateCode == 0 and tableBindCode == 0 else "Error creating chain.")
 
     elif (operation == "block"):
         print("Blocking the following addresses not contained within selected region:", ", ".join(addresses))
         for address in addresses:
-            os.system("sudo iptables -A INPUT -s {} -j DROP".format(address))
+            os.system("sudo iptables -A goregion -s {} -j DROP".format(address))
 
     elif (operation == "allow"):
         print("Unblocking the following addresses:", ", ".join(addresses))
         for address in addresses:
-            os.system("sudo iptables -D INPUT -s {} -j DROP".format(address))
+            os.system("sudo iptables -D goregion -s {} -j DROP".format(address))
 
     elif (operation == "reset"):
         print("Resetting all goregion rules...")
@@ -38,8 +40,11 @@ def iptc(operation, addresses):
 
 #check if iptables chain exists and create it if not
 chainPresent = True if os.system("sudo iptables -S | grep -Fx -- '-N goregion'") == 0 else False
-if not chainPresent:
-    iptc("createChain", None)
+chainBound = True if os.system("sudo iptables -S | grep -Fx -- '-A INPUT -j goregion'") == 0 else False
+chainSetup = True if chainPresent and chainBound else False
+if not chainSetup:
+    print("Chain not setup, triggered by values chainPresent: {} and chainBound: {}.".format(chainPresent, chainBound))
+    iptc("setupChain", None)
 
 iptc("reset", None)
 
