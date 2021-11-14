@@ -16,41 +16,51 @@ import os
 #Valve physical network diagram path
 NETWORK_DIAGRAM_PATH = "layout.json"
 
-#iptables interface functions
-def callIpTables(args):
-    return os.system("sudo iptables {}".format(args))
+#iptables interface class
+class ipTablesControl:
+    @staticmethod
+    def callIpTables(args):
+        return os.system("sudo iptables {}".format(args))
 
-def iptc(operation, addresses):
-
-    if (operation == "setupChain"):
+    @classmethod
+    def createChain(cls):
         print("Creating iptables chain \"goregion\"...")
-        tableCreateCode = 0 if chainPresent else callIpTables("-N goregion")
-        tableBindCode = 0 if chainBound else callIpTables("-A INPUT -j goregion")
-        print("Successfully created chain." if tableCreateCode == 0 and tableBindCode == 0 else "Error creating chain.")
+        exitCode = cls.callIpTables("-N goregion")
+        print("Successfully created chain." if exitCode == 0 else "Error creating chain.")
 
-    elif (operation == "block"):
+    @classmethod
+    def bindChain(cls):
+        print("Binding iptables chain \"goregion\" so it's passed traffic from default INPUT chain...")
+        cls.callIpTables("-A INPUT -j goregion")
+        print("Successfully bound chain." if exitCode == 0 else "Error binding chain.")
+
+    @classmethod
+    def block(cls, addresses):
         print("Blocking the following addresses not contained within selected region:", ", ".join(addresses))
         for address in addresses:
-            callIpTables("-A goregion -s {} -j DROP".format(address))
+            cls.callIpTables("-A goregion -s {} -j DROP".format(address))
 
-    elif (operation == "allow"):
+    @classmethod
+    def allow(cls, addresses):
         print("Unblocking the following addresses:", ", ".join(addresses))
         for address in addresses:
-            callIpTables("-D goregion -s {} -j DROP".format(address))
+            cls.callIpTables("-D goregion -s {} -j DROP".format(address))
 
-    elif (operation == "reset"):
+    @classmethod 
+    def reset(cls):
         print("Resetting all goregion rules...")
-        print("Successfully reset chain." if callIpTables("-F goregion") == 0 else "Error resetting chain.")
+        print("Successfully reset chain." if cls.callIpTables("-F goregion") == 0 else "Error resetting chain.")
 
 #check if iptables chain exists and create it if not
-chainPresent = True if callIpTables("-S | grep -Fx -- '-N goregion'") == 0 else False
-chainBound = True if callIpTables("-S | grep -Fx -- '-A INPUT -j goregion'") == 0 else False
-chainSetup = True if chainPresent and chainBound else False
+chainPresent = ipTablesControl.callIpTables("-S | grep -Fx -- '-N goregion'") == 0
+chainBound = ipTablesControl.callIpTables("-S | grep -Fx -- '-A INPUT -j goregion'") == 0
+chainSetup = chainPresent and chainBound
 if not chainSetup:
     print("Chain not setup, triggered by values chainPresent: {} and chainBound: {}.".format(chainPresent, chainBound))
-    iptc("setupChain", None)
+    ipTablesControl.createChain()
+    ipTablesControl.bindChain()
 
-iptc("reset", None)
+ipTablesControl.reset()
 
 with urllib.request.urlopen("https://raw.githubusercontent.com/SteamDatabase/SteamTracking/master/Random/NetworkDatagramConfig.json") as rawData:
     jsonData = json.loads(rawData.read())
@@ -86,6 +96,6 @@ with urllib.request.urlopen("https://raw.githubusercontent.com/SteamDatabase/Ste
                         for address in [relay["ipv4"] for relay in pop["relays"]]:
                             blacklistAddresses.append(address)
 
-            iptc("block", blacklistAddresses)
+            ipTablesControl.block(blacklistAddresses)
 
 print("Thank you for using CS:GO region selector.")
