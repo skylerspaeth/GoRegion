@@ -1,1 +1,0 @@
-ping -c 5 162.254.196.66 | tail -n 1 | awk '{print $4}' | cut -d '/' -f 2 | awk '{print int($1)}'
