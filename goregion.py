@@ -31,7 +31,7 @@ class ipTablesControl:
     @classmethod
     def bindChain(cls):
         print("Binding iptables chain \"goregion\" so it's passed traffic from default INPUT chain...")
-        cls.callIpTables("-A INPUT -j goregion")
+        exitCode = cls.callIpTables("-A INPUT -j goregion")
         print("Successfully bound chain." if exitCode == 0 else "Error binding chain.")
 
     @classmethod
@@ -52,8 +52,8 @@ class ipTablesControl:
         print("Successfully reset chain." if cls.callIpTables("-F goregion") == 0 else "Error resetting chain.")
 
 #check if iptables chain exists and create it if not
-chainPresent = ipTablesControl.callIpTables("-S | grep -Fx -- '-N goregion'") == 0
-chainBound = ipTablesControl.callIpTables("-S | grep -Fx -- '-A INPUT -j goregion'") == 0
+chainPresent = ipTablesControl.callIpTables("-S | grep -Fx -- '-N goregion' > /dev/null") == 0
+chainBound = ipTablesControl.callIpTables("-S | grep -Fx -- '-A INPUT -j goregion' > /dev/null") == 0
 chainSetup = chainPresent and chainBound
 if not chainSetup:
     print("Chain not setup, triggered by values chainPresent: {} and chainBound: {}.".format(chainPresent, chainBound))
