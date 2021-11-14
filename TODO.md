@@ -1,0 +1,7 @@
+- Add spacing to output
+- Add color-coding to output to indicate success/failure
+- Implement ability to take command line arguments for...
+    - Airport code vs region code for interactive mode
+    - Pass airport/region code inline
+- Write full README
+- Implement hash checker to verify that the layout is the same even when IPs are different
