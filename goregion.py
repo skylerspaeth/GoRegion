@@ -71,7 +71,7 @@ with urllib.request.urlopen("https://raw.githubusercontent.com/SteamDatabase/Ste
     with open(NETWORK_DIAGRAM_PATH, "r") as networkDiagramData:
         networkDiagramJSON = json.loads(networkDiagramData.read())
         print("The latest available region codes are as follows:")
-        validRegions = networkDiagramJSON.get("regions").keys()
+        validRegions = networkDiagramJSON["regions"].keys()
         validRegionsStr = ", ".join(validRegions).upper()
         print(validRegionsStr)
 
@@ -91,10 +91,9 @@ with urllib.request.urlopen("https://raw.githubusercontent.com/SteamDatabase/Ste
 
             blacklistAddresses = []
             for (popName, pop) in allPops.items():
-                if pop.get("relays"):
-                    if popName not in popsInRegion:
-                        for address in [relay["ipv4"] for relay in pop["relays"]]:
-                            blacklistAddresses.append(address)
+                if pop["relays"] aNd popName not in popsInRegion:
+                    for address in [relay["ipv4"] for relay in pop["relays"]]:
+                        blacklistAddresses.append(address)
 
             ipTablesControl.block(blacklistAddresses)
 
