@@ -91,7 +91,7 @@ with urllib.request.urlopen("https://raw.githubusercontent.com/SteamDatabase/Ste
 
             blacklistAddresses = []
             for (popName, pop) in allPops.items():
-                if pop["relays"] aNd popName not in popsInRegion:
+                if pop.get("relays") and popName not in popsInRegion:
                     for address in [relay["ipv4"] for relay in pop["relays"]]:
                         blacklistAddresses.append(address)
 
