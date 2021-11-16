@@ -102,6 +102,7 @@ with urllib.request.urlopen("https://raw.githubusercontent.com/SteamDatabase/Ste
         selectedRegion = input("Select a region by entering its code: ").lower()
         if selectedRegion not in validRegions:
             print(colors.write("fail", "You must enter a valid region from the following: " + validRegionsStr))
+            exit(1)
         else:
             regionalCities = networkDiagramJSON["regions"][selectedRegion]["cities"]
             citiesToDisplay = ", ".join([
