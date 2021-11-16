@@ -26,19 +26,25 @@ class ipTablesControl:
     def createChain(cls):
         print("Creating iptables chain \"goregion\"...")
         exitCode = cls.callIpTables("-N goregion")
-        print("Successfully created chain." if exitCode == 0 else "Error creating chain.")
+        print(colors.write("cyan", "Successfully created chain.") if exitCode == 0 else colors.write("fail", "Error creating chain."))
 
     @classmethod
     def bindChain(cls):
         print("Binding iptables chain \"goregion\" so it's passed traffic from default INPUT chain...")
         exitCode = cls.callIpTables("-A INPUT -j goregion")
-        print("Successfully bound chain." if exitCode == 0 else "Error binding chain.")
+        print(colors.write("cyan", "Successfully bound chain.") if exitCode == 0 else colors.write("fail", "Error binding chain."))
 
     @classmethod
     def block(cls, addresses):
-        print("Blocking the following addresses not contained within selected region:", ", ".join(addresses))
+        print(colors.write("blue", "Blocking ") \
+        + colors.write("blue", colors.write("bold", str(len(addresses)))) \
+        + colors.write("blue", " addresses not contained within selected region..."))
         for address in addresses:
-            cls.callIpTables("-A goregion -s {} -j DROP".format(address))
+            exitCode = cls.callIpTables("-A goregion -s {} -j DROP".format(address))
+            if exitCode != 0:
+                raise Exception("Error while trying to append DROP rule for {}. ".format(address) \
+                + "There's likely an issue with iptables or the address and we don't want to break anything by continuing.")
+        print(colors.write("green", "IP tables rules appended, hosts successfully blocked."))
 
     @classmethod
     def allow(cls, addresses):
@@ -49,14 +55,33 @@ class ipTablesControl:
     @classmethod 
     def reset(cls):
         print("Resetting all goregion rules...")
-        print("Successfully reset chain." if cls.callIpTables("-F goregion") == 0 else "Error resetting chain.")
+        print(colors.write("cyan", "Successfully reset chain.") if cls.callIpTables("-F goregion") == 0 else colors.write("fail", "Error resetting chain."))
+
+#text coloring class for better readability
+class colors:
+    HEADER = '\033[95m'
+    BLUE = '\033[94m'
+    CYAN = '\033[96m'
+    GREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+    #COLOR REFERENCE:
+    #cyan is for setup/anything before the process of blocking addresses, blue is for anything after, and green is final success.
+
+    @classmethod
+    def write(cls, color, text):
+        return getattr(cls, color.upper()) + text + cls.ENDC
 
 #check if iptables chain exists and create it if not
 chainPresent = ipTablesControl.callIpTables("-S | grep -Fx -- '-N goregion' > /dev/null") == 0
 chainBound = ipTablesControl.callIpTables("-S | grep -Fx -- '-A INPUT -j goregion' > /dev/null") == 0
 chainSetup = chainPresent and chainBound
 if not chainSetup:
-    print("Chain not setup, triggered by values chainPresent: {} and chainBound: {}.".format(chainPresent, chainBound))
+    print(colors.write("warning", "\"goregion\" chain not found, attempting to setup..."))
     ipTablesControl.createChain()
     ipTablesControl.bindChain()
 
@@ -65,8 +90,7 @@ ipTablesControl.reset()
 with urllib.request.urlopen("https://raw.githubusercontent.com/SteamDatabase/SteamTracking/master/Random/NetworkDatagramConfig.json") as rawData:
     jsonData = json.loads(rawData.read())
     allPops = jsonData["pops"]
-    print("Retrieved SteamDB NetworkDatagramConfig.json version {}.".format(jsonData.get("revision")))
-
+    print(colors.write("green", "Retrieved SteamDB NetworkDatagramConfig.json version {}.\n".format(jsonData.get("revision"))))
 
     with open(NETWORK_DIAGRAM_PATH, "r") as networkDiagramData:
         networkDiagramJSON = json.loads(networkDiagramData.read())
