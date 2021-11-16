@@ -101,17 +101,16 @@ with urllib.request.urlopen("https://raw.githubusercontent.com/SteamDatabase/Ste
 
         selectedRegion = input("Select a region by entering its code: ").lower()
         if selectedRegion not in validRegions:
-            print("You must enter a valid region from the following:", validRegionsStr)
+            print(colors.write("fail", "You must enter a valid region from the following: " + validRegionsStr))
         else:
             regionalCities = networkDiagramJSON["regions"][selectedRegion]["cities"]
             citiesToDisplay = ", ".join([
                 "{} ({})".format(city.get("cityName"), city.get("airportCode").upper())
                 for city in regionalCities
             ])
-            print("Cities available in the {} region: {}".format(selectedRegion.upper(), citiesToDisplay))
+            print("\nRegion {} contains the following cities: {}".format(selectedRegion.upper(), citiesToDisplay))
 
             popsInRegion = list(itertools.chain(*[city.get("referrers", [city.get("airportCode")]) for city in regionalCities]))
-            print("POPs in region:", popsInRegion)
 
             blacklistAddresses = []
             for (popName, pop) in allPops.items():
