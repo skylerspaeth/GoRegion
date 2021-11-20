@@ -3,6 +3,7 @@ GoRegion is a collection of Python scripts that allow you to select which Valve 
 ## Requirements
 As of now, GoRegion only supports Linux-based systems. I haven't tested it extensively on machines other than my own (Debian 10, Buster), but the only requirements, defined by the commands referenced in the code, are as follows:
 - `iptables`
+- Python 3.0 or higher
 - `sudo`
   - Must be installed to allow a non-root user to run GoRegion
   - Permissions will be elevated as needed and you can run the program without sudo
