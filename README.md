@@ -1,4 +1,15 @@
-# goregion
+<p align="center">
+  <img src="http://skylerspaeth.com/assets/goregion/goregion.png" alt="GoRegion Logo">
+</p>
+<p align="center">
+    <em>A Python app that allows you to select which Valve matchmaking server you queue for in CS:GO on Linux systems</em>
+</p>
+<p align="center">
+    <img src="https://github.com/tiangolo/fastapi/workflows/Test/badge.svg?event=push&branch=master" alt="Test">
+    <img src="http://skylerspaeth.com/assets/goregion/versions.svg" alt="Supported Python versions">
+</p>
+
+---
 GoRegion is a collection of Python scripts that allow you to select which Valve matchmaking server you queue for in CS:GO. It sticks out among other similar programs by dynamically fetching server and IP information from SteamDB, preventing you from having to update a list manually every time Valve changes their addresses.
 ## Requirements
 As of now, GoRegion only supports Linux-based systems. I haven't tested it extensively on machines other than my own (Debian 10, Buster), but the only requirements, defined by the commands referenced in the code, are as follows:
