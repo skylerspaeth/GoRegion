@@ -7,7 +7,7 @@
 <p align="center">
     <img src="https://img.shields.io/github/v/release/skylerspaeth/goregion?color=%2334D058" alt="Test">
     <img src="https://img.shields.io/badge/platform-linux--64%20%7C%20linux--32-%2334D058" alt="Supported OS/Architectures">
-    <img src="http://skylerspaeth.com/assets/goregion/versions.svg" alt="Supported Python versions">
+    <img src="https://raw.githubusercontent.com/skylerspaeth/goregion/master/doc/python-versions.svg" alt="Supported Python versions">
 </p>
 
 ---
