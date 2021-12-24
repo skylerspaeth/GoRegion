@@ -25,8 +25,30 @@ As of now, GoRegion only supports Linux-based systems. I haven't tested it exten
   - I can't think if any situation where this wouldn't be present, but adding this to ensure it's an exhaustive list
 
 ## Setup
-### Installation
+### Portable Usage
 If you have any remotely standard Linux distibution, there is no setup other than cloning (or downloading a ZIP of) the repo and running the code. If you choose to run the program directly (`./goregion.py`), you'll need to first make it executable by typing the following in the repo directory:
-`chmod +x goregion`
-### Running
-You can either run with `python3 goregion` or `./goregion.py`.
+```bash
+chmod +x goregion.py
+```
+Then run it with:
+```bash
+./goregion.py
+# OR
+python3 goregion.py
+```
+### Installation
+If you'd like to install GoRegion to run it from anywhere, simply run the install script without arguments:
+```bash
+./install.sh
+```
+Then from any directory, just run the command:
+```bash
+goregion
+```
+### Uninstallation
+Assuming you installed using the included install script, simple use the `-u` or `--uninstall` options of the same script. For instance:
+```bash
+./install.sh -u
+# OR
+./install.sh --uninstall
+```
