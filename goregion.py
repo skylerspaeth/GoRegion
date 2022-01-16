@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-
 #ensure compatible interpreter version
 import sys
 if (sys.version_info[0] < 3):
     raise Exception("This script requires Python 3, while you ran it with {}.{}.".format(sys.version_info[0], sys.version_info[1]))
+
+#module for handling arguments
+import argparse
 
 #JSON manipulation and requests module imports
 import json
@@ -12,6 +14,12 @@ import itertools
 
 #needed for iptables invocation
 import os
+
+#setup ping and reset optional arguments
+parser = argparse.ArgumentParser()
+parser.add_argument("-p", "--ping", help="print latency to each region", action="store_true")
+parser.add_argument("-r", "--reset", help="resets goregion's iptables chain, allowing all regions again", action="store_true")
+args = parser.parse_args()
 
 #Valve physical network diagram path
 NETWORK_DIAGRAM_PATH = "layout.json"
@@ -76,49 +84,57 @@ class colors:
     def write(cls, color, text):
         return getattr(cls, color.upper()) + text + cls.ENDC
 
-#check if iptables chain exists and create it if not
-chainPresent = ipTablesControl.callIpTables("-S | grep -Fx -- '-N goregion' > /dev/null") == 0
-chainBound = ipTablesControl.callIpTables("-S | grep -Fx -- '-A INPUT -j goregion' > /dev/null") == 0
-chainSetup = chainPresent and chainBound
-if not chainSetup:
-    print(colors.write("warning", "\"goregion\" chain not found, attempting to setup..."))
-    ipTablesControl.createChain()
-    ipTablesControl.bindChain()
+if args.reset and args.ping:
+    ipTablesControl.reset()
+    print("pinging...")
+elif args.reset: 
+    ipTablesControl.reset()
+elif args.ping:
+    print("pinging...")
+else:
+    #check if iptables chain exists and create it if not
+    chainPresent = ipTablesControl.callIpTables("-S | grep -Fx -- '-N goregion' > /dev/null") == 0
+    chainBound = ipTablesControl.callIpTables("-S | grep -Fx -- '-A INPUT -j goregion' > /dev/null") == 0
+    chainSetup = chainPresent and chainBound
+    if not chainSetup:
+        print(colors.write("warning", "\"goregion\" chain not found, attempting to setup..."))
+        ipTablesControl.createChain()
+        ipTablesControl.bindChain()
 
-ipTablesControl.reset()
+    ipTablesControl.reset()
 
-with urllib.request.urlopen("https://raw.githubusercontent.com/SteamDatabase/SteamTracking/master/Random/NetworkDatagramConfig.json") as rawData:
-    jsonData = json.loads(rawData.read())
-    allPops = jsonData["pops"]
-    print(colors.write("green", "Retrieved SteamDB NetworkDatagramConfig.json version {}.\n".format(jsonData.get("revision"))))
+    with urllib.request.urlopen("https://raw.githubusercontent.com/SteamDatabase/SteamTracking/master/Random/NetworkDatagramConfig.json") as rawData:
+        jsonData = json.loads(rawData.read())
+        allPops = jsonData["pops"]
+        print(colors.write("green", "Retrieved SteamDB NetworkDatagramConfig.json version {}.\n".format(jsonData.get("revision"))))
 
-    with open(NETWORK_DIAGRAM_PATH, "r") as networkDiagramData:
-        networkDiagramJSON = json.loads(networkDiagramData.read())
-        print("The latest available region codes are as follows:")
-        validRegions = networkDiagramJSON["regions"].keys()
-        validRegionsStr = ", ".join(validRegions).upper()
-        print(validRegionsStr)
+        with open(NETWORK_DIAGRAM_PATH, "r") as networkDiagramData:
+            networkDiagramJSON = json.loads(networkDiagramData.read())
+            print("The latest available region codes are as follows:")
+            validRegions = networkDiagramJSON["regions"].keys()
+            validRegionsStr = ", ".join(validRegions).upper()
+            print(validRegionsStr)
 
-        selectedRegion = input("Select a region by entering its code: ").lower()
-        if selectedRegion not in validRegions:
-            print(colors.write("fail", "You must enter a valid region from the following: " + validRegionsStr))
-            exit(1)
-        else:
-            regionalCities = networkDiagramJSON["regions"][selectedRegion]["cities"]
-            citiesToDisplay = ", ".join([
-                "{} ({})".format(city.get("cityName"), city.get("airportCode").upper())
-                for city in regionalCities
-            ])
-            print("\nRegion {} contains the following cities: {}".format(selectedRegion.upper(), citiesToDisplay))
+            selectedRegion = input("Select a region by entering its code: ").lower()
+            if selectedRegion not in validRegions:
+                print(colors.write("fail", "You must enter a valid region from the following: " + validRegionsStr))
+                exit(1)
+            else:
+                regionalCities = networkDiagramJSON["regions"][selectedRegion]["cities"]
+                citiesToDisplay = ", ".join([
+                    "{} ({})".format(city.get("cityName"), city.get("airportCode").upper())
+                    for city in regionalCities
+                ])
+                print("\nRegion {} contains the following cities: {}".format(selectedRegion.upper(), citiesToDisplay))
 
-            popsInRegion = list(itertools.chain(*[city.get("referrers", [city.get("airportCode")]) for city in regionalCities]))
+                popsInRegion = list(itertools.chain(*[city.get("referrers", [city.get("airportCode")]) for city in regionalCities]))
 
-            blacklistAddresses = []
-            for (popName, pop) in allPops.items():
-                if pop.get("relays") and popName not in popsInRegion:
-                    for address in [relay["ipv4"] for relay in pop["relays"]]:
-                        blacklistAddresses.append(address)
+                blacklistAddresses = []
+                for (popName, pop) in allPops.items():
+                    if pop.get("relays") and popName not in popsInRegion:
+                        for address in [relay["ipv4"] for relay in pop["relays"]]:
+                            blacklistAddresses.append(address)
 
-            ipTablesControl.block(blacklistAddresses)
+                ipTablesControl.block(blacklistAddresses)
 
-print("Thank you for using CS:GO region selector.")
+print("\nThank you for using CS:GO region selector.")

@@ -1,5 +1,4 @@
 - Add spacing to output
-- Add color-coding to output to indicate success/failure
 - Implement ability to take command line arguments for...
     - Airport code vs region code for interactive mode
     - Pass airport/region code inline
