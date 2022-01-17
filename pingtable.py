@@ -30,18 +30,23 @@ with urllib.request.urlopen("https://raw.githubusercontent.com/SteamDatabase/Ste
     with open("layout.json", "r") as networkDiagramData:
         networkDiagramJSON = json.loads(networkDiagramData.read())
 
-    for (popName, pop) in allPops.items():
-        if pop.get("relays") and pop.get("desc"):
-            for address in [relay["ipv4"] for relay in pop["relays"]]:
-                try:
-                    print("", end=f"\rPinging {pop['desc']}...")
-                    command = "/bin/bash -c \"set -o pipefail && ping -c 3 {} | tail -n 1 | awk '{{print \$4}}' | cut -d '/' -f 2 | awk '{{print int(\$1)}}'\"".format(address)
-                    response = subprocess.check_output(command, shell=True).strip()
-                    print("", end=f"\r{pop['desc'] : <25}{popName.upper() : <10}{Thresholds.stylize(response.decode('ascii')) : <10}\n")
-                    break
-                except KeyboardInterrupt:
-                    print("Aborting...")
-                    exit(1)
-                except subprocess.CalledProcessError as e:
-                    raise RuntimeError("command '{}' return with error (code {}): {}".format(e.cmd, e.returncode, e.output))
-                    #print("something")
+    def get_pings():
+        for (popName, pop) in allPops.items():
+            if pop.get("relays") and pop.get("desc"):
+                for address in [relay["ipv4"] for relay in pop["relays"]]:
+                    try:
+                        print("", end=f"\rPinging {pop['desc']}...")
+                        command = "/bin/bash -c \"set -o pipefail && ping -c 3 {} | tail -n 1 | awk '{{print \$4}}' | cut -d '/' -f 2 | awk '{{print int(\$1)}}'\"".format(address)
+                        response = subprocess.check_output(command, shell=True).strip()
+                        print("", end=f"\r{pop['desc'] : <25}{popName.upper() : <10}{Thresholds.stylize(response.decode('ascii')) : <10}\n")
+                        break
+                    except KeyboardInterrupt:
+                        print("\nAborting...")
+                        exit(1)
+                    except subprocess.CalledProcessError as e:
+                        if e.returncode == 1:
+                            print("", end=f"\r{pop['desc'] : <25}{popName.upper() : <10}{'Unreachable' : <10}\n")
+                        else:
+                            raise RuntimeError("Command '{}' returned with nonzero exit code ({}): {}".format(e.cmd, e.returncode, e.output))
+    import timeit
+    print("Servers pinged in {} seconds.".format(timeit.timeit(get_pings, number=1)))
