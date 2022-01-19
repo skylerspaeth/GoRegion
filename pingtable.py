@@ -1,9 +1,8 @@
-# experimental tests for --ping option later
-
 import urllib.request
 import json
 import subprocess
 import timeit
+from validate import validate
 
 def main():
     class Thresholds:
@@ -36,20 +35,21 @@ def main():
 
         serversReached = 0
         serversUnreachable = 0
-        def get_pings():
+        def getPings():
             for (popName, pop) in allPops.items():
                 if pop.get("relays") and pop.get("desc"):
                     addresses = [relay["ipv4"] for relay in pop["relays"]]
                     for addressIdx in range(len(addresses)):
                         try:
-                            print("", end=f"\rPinging {popName.upper()} relay {addressIdx + 1} of {len(addresses)}...")
-                            packetCount = 1
-                            command = "/bin/bash -c \"set -o pipefail && ping -c {} {} | tail -n 1 | awk '{{print \$4}}' | cut -d '/' -f 2 | awk '{{print int(\$1)}}'\"".format(packetCount, addresses[addressIdx])
-                            response = subprocess.check_output(command, shell=True).strip()
-                            nonlocal serversReached
-                            serversReached += 1
-                            print("", end=f"\r{pop['desc'] : <25}{popName.upper() : <10}{Thresholds.stylize(response.decode('ascii')) : <10}\n")
-                            break
+                            if validate(addresses[addressIdx]):
+                                print("", end=f"\rPinging {popName.upper()} relay {addressIdx + 1} of {len(addresses)}...")
+                                packetCount = 1
+                                command = "/bin/bash -c \"set -o pipefail && ping -c {} {} | tail -n 1 | awk '{{print \$4}}' | cut -d '/' -f 2 | awk '{{print int(\$1)}}'\"".format(packetCount, addresses[addressIdx])
+                                response = subprocess.check_output(command, shell=True).strip()
+                                nonlocal serversReached
+                                serversReached += 1
+                                print("", end=f"\r{pop['desc'] : <25}{popName.upper() : <10}{Thresholds.stylize(response.decode('ascii')) : <10}\n")
+                                break
                         except subprocess.CalledProcessError as e:
                             if e.returncode == 1:
                                 if (addressIdx + 1 == len(addresses)):
@@ -61,7 +61,9 @@ def main():
                         except KeyboardInterrupt:
                             print("\nAborting...")
                             exit(1)
-        pingTime = round(timeit.timeit(get_pings, number=1))
+
+        pingTime = round(timeit.timeit(getPings, number=1))
+
         print("")
         if serversUnreachable:
             print("{} server regions pinged in {} seconds, {} of which were unreachable.".format((serversReached + serversUnreachable), pingTime, serversUnreachable))
