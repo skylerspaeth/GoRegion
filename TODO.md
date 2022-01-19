@@ -8,3 +8,4 @@
 - Write full README
 - Implement hash checker to verify that the layout is the same even when IPs are different
 - Add security feature that validates each address only contains digits and periods since it's always possible someone nasty could get control of SteamDB
+- Add `/opt/goregion` to $PATH in install.sh script
