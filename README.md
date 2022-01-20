@@ -5,7 +5,7 @@
     <em>A Python app that allows you to select which Valve matchmaking server you queue for in CS:GO on Linux systems</em>
 </p>
 <p align="center">
-    <img src="https://img.shields.io/github/v/release/skylerspaeth/goregion?color=%2334D058" alt="Test">
+    <img src="https://img.shields.io/github/v/release/skylerspaeth/goregion?include_prereleases&color=%2334D058" alt="Test">
     <img src="https://img.shields.io/badge/platform-linux--64%20%7C%20linux--32-%2334D058" alt="Supported OS/Architectures">
     <img src="https://raw.githubusercontent.com/skylerspaeth/goregion/master/doc/python-versions.svg" alt="Supported Python versions">
 </p>
