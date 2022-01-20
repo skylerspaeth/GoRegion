@@ -80,6 +80,10 @@ optional arguments:
   -r, --reset    resets goregion's iptables chain, allowing all regions again
   -v, --version  check installed goregion version
 ```
+The `--ping` option will ping each point of presence (PoP) in the network diagram file. It starts with trying just one relay for that PoP, and will continue if a connection can be established, but if the relay is unreachable, it'll continue through that PoP's list of relays to try and get a ping.
+
+<img width="60%" src="https://raw.githubusercontent.com/skylerspaeth/goregion/master/doc/ping.png" alt="--ping option">
+
 
 ## Further Plans
 Many features and improvements are in the works for GoRegion. For the full to-do list, see [TODO.md](TODO.md)
