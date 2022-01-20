@@ -13,7 +13,7 @@
 ---
 GoRegion is a collection of Python scripts that allow you to select which Valve matchmaking server you queue for in CS:GO. It sticks out among other similar programs by dynamically fetching server and IP information from SteamDB, preventing you from having to update a list manually every time Valve changes their addresses.
 
-<img width="60%" src="https://raw.githubusercontent.com/skylerspaeth/goregion/master/doc/screenshot.png" alt="Screenshot of app">
+<img width="60%" src="https://raw.githubusercontent.com/skylerspaeth/goregion/master/doc/goregion.png" alt="Screenshot of app">
 
 ## Table of Contents
 - [Introduction](#introduction)
