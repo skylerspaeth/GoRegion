@@ -86,4 +86,4 @@ The `--ping` option will ping each point of presence (PoP) in the network diagra
 
 
 ## Further Plans
-Many features and improvements are in the works for GoRegion. For the full to-do list, see [TODO.md](docs/TODO.md)
+Many features and improvements are in the works for GoRegion. For the full to-do list, see [TODO.md](doc/TODO.md)
