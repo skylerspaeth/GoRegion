@@ -1,0 +1,48 @@
+ams: 117ms via ord (front=27ms, back=90ms)
+  atl: 18ms via direct route
+  bom: 229ms via direct route
+  can: 186ms via hkg (front=179ms, back=7ms)
+  canm: 195ms via hkg (front=179ms, back=16ms)
+  cant: 186ms via hkg (front=179ms, back=7ms)
+  canu: 202ms via direct route
+  dfw: 9ms via direct route
+  dxb: 224ms via direct route
+  eat: 54ms via lax (front=30ms, back=24ms)
+  eze: 153ms via lim (front=104ms, back=49ms)
+  fra: 116ms via atl (front=18ms, back=98ms)
+  gru: 149ms via atl (front=18ms, back=131ms)
+  hkg: 184ms via lax (front=30ms, back=154ms)
+  iad: 31ms via atl (front=18ms, back=13ms)
+  jnb: 272ms via lhr (front=111ms, back=161ms)
+  lax: 30ms via direct route
+  lhr: 115ms via atl (front=18ms, back=97ms)
+  lim: 104ms via direct route
+  maa: 241ms via hkg (front=179ms, back=62ms)
+  mad: 106ms via direct route
+  ord: 27ms via direct route
+  par: 108ms via atl (front=18ms, back=90ms)
+  pwg: 185ms via hkg (front=179ms, back=6ms)
+  pwj: 209ms via tsnu (front=208ms, back=1ms)
+  pwu: 217ms via tsnu (front=208ms, back=9ms)
+  pww: 218ms via shb (front=203ms, back=15ms)
+  pwz: 214ms via hkg (front=179ms, back=35ms)
+  scl: 133ms via lim (front=104ms, back=29ms)
+  sea: 54ms via lax (front=30ms, back=24ms)
+  seo: 171ms via tyo1 (front=141ms, back=30ms)
+  sgp: 209ms via hkg (front=179ms, back=30ms)
+  sha: 207ms via hkg (front=179ms, back=28ms)
+  sham: 215ms via shau (front=215ms, back=0ms)
+  shat: 207ms via hkg (front=179ms, back=28ms)
+  shau: 215ms via direct route
+  shb: 203ms via direct route
+  sto: 137ms via atl (front=18ms, back=119ms)
+  sto2: 135ms via atl (front=18ms, back=117ms)
+  syd: 218ms via direct route
+  tsn: 208ms via tsnu (front=208ms, back=0ms)
+  tsnm: 208ms via tsnu (front=208ms, back=0ms)
+  tsnt: 208ms via tsnu (front=208ms, back=0ms)
+  tsnu: 208ms via direct route
+  tyo: 141ms via tyo1 (front=141ms, back=0ms)
+  tyo1: 141ms via direct route
+  vie: 129ms via atl (front=18ms, back=111ms)
+  waw: 133ms via atl (front=18ms, back=115ms)
