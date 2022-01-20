@@ -15,19 +15,32 @@ GoRegion is a collection of Python scripts that allow you to select which Valve 
 
 <img width="60%" src="https://raw.githubusercontent.com/skylerspaeth/goregion/master/doc/screenshot.png" alt="Screenshot of app">
 
-## Requirements
-As of now, GoRegion only supports Linux-based systems. I haven't tested it extensively on machines other than my own (Debian 10, Buster), but the only requirements, defined by the commands referenced in the code, are as follows:
-- `iptables`
+## Table of Contents
+- [Introduction](#introduction)
+- [Setup](#setup)
+  - [Requirements](#requirements)
+  - [Portable Usage](#portable-usage)
+  - [Installation](#installation)
+  - [Uninstallation](#uninstallation)
+- [Usage](#usage)
+- [Further Plans](#further-plans)
+
+## Introduction
+The inspiration behind making GoRegion is the state of North American matchmaking in CS:GO. When every other game in the silver bracket is filled either cheaters or smurfs, trying to rank up is discouraging at best. While your mileage may vary, my experience shows that other regions (such as EU and Japan) are far more balanced and reasonable in their rank distributions.
+
+Programatically, the program works as a wrapper for iptables. It first gets the latest matchmaking IPs being [tracked by SteamDB](https://github.com/SteamDatabase/SteamTracking/blob/master/Random/NetworkDatagramConfig.json) to ensure that the calls to iptables use the most up-to-date information from Valve. An iptables chain is created for GoRegion to be able to append block rules to and destroy with ease.
+
+## Setup
+### Requirements
+As of now, GoRegion only supports Linux-based systems. I haven't tested it extensively on machines other than my own (Debian 10/Buster), but the only requirements, defined by the commands referenced in the code, are as follows:
 - Python 3.0 or higher
 - `sudo`
   - Must be installed to allow a non-root user to run GoRegion
   - Permissions will be elevated as needed and you can run the program without sudo
+- Netfilter `iptables`
 - GNU `grep`
   - Presumably alternative implementations of grep, for example what's found in busybox, may also have the needed flags (`-F` and `-x`)
-- `sh` or a bash-like shell aliased to `/bin/sh`
-  - I can't think if any situation where this wouldn't be present, but adding this to ensure it's an exhaustive list
 
-## Setup
 ### Portable Usage
 If you have any remotely standard Linux distibution, there is no setup other than cloning (or downloading a ZIP of) the repo and running the code. If you choose to run the program directly (`./goregion.py`), you'll need to first make it executable by typing the following in the repo directory:
 ```bash
@@ -49,9 +62,24 @@ Then from any directory, just run the command:
 goregion
 ```
 ### Uninstallation
-Assuming you installed using the included install script, simple use the `-u` or `--uninstall` options of the same script. For instance:
+Assuming you installed using the included install script, simply use the `-u` or `--uninstall` options of the same script. For instance:
 ```bash
 ./install.sh -u
 # OR
 ./install.sh --uninstall
 ```
+
+## Usage
+The program without arguments runs in an interactive mode, showing you the available regions. Additionally, the following arguments are available:
+```
+usage: goregion [-h] [-p] [-r] [-v]
+
+optional arguments:
+  -h, --help     show this help message and exit
+  -p, --ping     print latency to each region
+  -r, --reset    resets goregion's iptables chain, allowing all regions again
+  -v, --version  check installed goregion version
+```
+
+## Further Plans
+Many features and improvements are in the works for GoRegion. For the full to-do list, see [TODO.md](TODO.md)
