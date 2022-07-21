@@ -1,4 +1,5 @@
 <p align="center">
+  <br>
   <img width="50%" src="https://raw.githubusercontent.com/skylerspaeth/goregion/resize-header/doc/logo.png" alt="GoRegion Logo">
 </p>
 <p align="center">
