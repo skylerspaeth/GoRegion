@@ -1,6 +1,6 @@
 <p align="center">
   <br>
-  <img width="50%" src="https://raw.githubusercontent.com/skylerspaeth/goregion/resize-header/doc/logo.png" alt="GoRegion Logo">
+  <img width="50%" src="https://raw.githubusercontent.com/skylerspaeth/goregion/master/doc/logo.png" alt="GoRegion Logo">
 </p>
 <p align="center">
     <em>A Python app that allows you to select which Valve matchmaking server you queue for in CS:GO on Linux systems</em>
