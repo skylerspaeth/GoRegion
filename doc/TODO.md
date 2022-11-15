@@ -1,11 +1,7 @@
-- Add spacing to output
-- Implement ability to take command line arguments for...
+- Implement ability to take command line arguments for:
     - Airport code vs region code for interactive mode
     - Pass airport/region code inline
-    - Ping servers
-- Add pinging feature
 - The ability to select multiple regions with a list of their codes
-- Write full README
 - Implement hash checker to verify that the layout is the same even when IPs are different
-- Add security feature that validates each address only contains digits and periods since it's always possible someone nasty could get control of SteamDB
 - Add status flag
+- Write full README
