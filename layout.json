@@ -1,193 +1,193 @@
 {
-    "hash": "657e23c48e195d7b41a87525416c85ee",
+  "hash": "657e23c48e195d7b41a87525416c85ee",
     "regions": {
-        "euw": {
-            "regionCode": "euw",
-            "regionName": "Europe West",
-            "cities": [
-                {
-                    "cityName": "Amsterdam", "airportCode": "ams"
-                },
-                {
-                    "cityName": "Madrid", "airportCode": "mad"
-                },
-                {
-                    "cityName": "London", "airportCode": "lhr"
-                },
-                {
-                    "cityName": "Frankfurt", "airportCode": "fra"
-                },
-                {
-                    "cityName": "Paris", "airportCode": "cdg",
-                    "referrers": ["par"]
-                }
-            ]
+      "euw": {
+        "regionCode": "euw",
+        "regionName": "Europe West",
+        "cities": [
+          {
+            "cityName": "Amsterdam", "airportCode": "ams"
+          },
+          {
+            "cityName": "Madrid", "airportCode": "mad"
+          },
+          {
+            "cityName": "London", "airportCode": "lhr"
+          },
+          {
+            "cityName": "Frankfurt", "airportCode": "fra"
+          },
+          {
+            "cityName": "Paris", "airportCode": "cdg",
+            "referrers": ["par"]
+          }
+        ]
+      },
+      "eue": {
+        "regionCode": "eue",
+        "regionName": "Europe East",
+        "cities": [
+          {
+            "cityName": "Warsaw", "airportCode": "waw"
+          },
+          {
+            "cityName": "Vienna", "airportCode": "vie"
+          }
+        ]
+      },
+      "eun": {
+        "regionCode": "eun",
+        "regionName": "Europe North",
+        "cities": [
+          {
+            "cityName": "Stockholm", "airportCode": "arn",
+            "referrers": ["sto", "sto2"]
+          }
+        ]
+      },
+      "nan": {
+        "regionCode": "nan",
+        "regionName": "North America North",
+        "cities": [
+          {
+            "cityName": "Chicago", "airportCode": "ord"
+          }
+        ]
+      },
+      "nae": {
+        "regionCode": "nae",
+        "regionName": "North America East",
+        "cities": [
+          {
+            "cityName": "Atlanta", "airportCode": "atl"
+          },
+          {
+            "cityName": "Washington", "airportCode": "iad"
+          }
+        ]
+      },
+      "nas": {
+        "regionCode": "nas",
+        "regionName": "North America South",
+        "cities": [
+          {
+            "cityName": "Dallas-Fort Worth", "airportCode": "dfw"
+          }
+        ]
+      },
+      "naw": {
+        "regionCode": "naw",
+        "regionName": "North America West",
+        "cities": [
+          {
+            "cityName": "Los Angeles", "airportCode": "lax"
+          },
+          {
+            "cityName": "Seattle", "airportCode": "sea"
+          }
+        ]
+      },
+      "sam": {
+        "regionCode": "sam",
+        "regionName": "South America",
+        "cities": [
+          {
+            "cityName": "Sao Paulo", "airportCode": "gru"
+          },
+          {
+            "cityName": "Lima", "airportCode": "lim"
+          },
+          {
+            "cityName": "Buenos Aires", "airportCode": "eze"
+          },
+          {
+            "cityName": "Santiago", "airportCode": "scl"
+          }
+        ]
+      },
+      "ind": {
+        "regionCode": "ind",
+        "regionName": "India",
+        "cities": [
+        {
+          "cityName": "Mumbai", "airportCode": "bom"
         },
-        "eue": {
-            "regionCode": "eue",
-            "regionName": "Europe East",
-            "cities": [
-                {
-                    "cityName": "Warsaw", "airportCode": "waw"
-                },
-                {
-                    "cityName": "Vienna", "airportCode": "vie"
-                }
-            ]
-        },
-        "eun": {
-            "regionCode": "eun",
-            "regionName": "Europe North",
-            "cities": [
-                {
-                    "cityName": "Stockholm", "airportCode": "arn",
-                    "referrers": ["sto", "sto2"]
-                }
-            ]
-        },
-        "nan": {
-            "regionCode": "nan",
-            "regionName": "North America North",
-            "cities": [
-                {
-                    "cityName": "Chicago", "airportCode": "ord"
-                }
-            ]
-        },
-        "nae": {
-            "regionCode": "nae",
-            "regionName": "North America East",
-            "cities": [
-                {
-                    "cityName": "Atlanta", "airportCode": "atl"
-                },
-                {
-                    "cityName": "Washington", "airportCode": "iad"
-                }
-            ]
-        },
-        "nas": {
-            "regionCode": "nas",
-            "regionName": "North America South",
-            "cities": [
-                {
-                    "cityName": "Dallas-Fort Worth", "airportCode": "dfw"
-                }
-            ]
-        },
-        "naw": {
-            "regionCode": "naw",
-            "regionName": "North America West",
-            "cities": [
-                {
-                    "cityName": "Los Angeles", "airportCode": "lax"
-                },
-                {
-                    "cityName": "Seattle", "airportCode": "sea"
-                }
-            ]
-        },
-        "sam": {
-            "regionCode": "sam",
-            "regionName": "South America",
-            "cities": [
-                {
-                    "cityName": "Sao Paulo", "airportCode": "gru"
-                },
-                {
-                    "cityName": "Lima", "airportCode": "lim"
-                },
-                {
-                    "cityName": "Buenos Aires", "airportCode": "eze"
-                },
-                {
-                    "cityName": "Santiago", "airportCode": "scl"
-                }
-            ]
-        },
-        "ind": {
-            "regionCode": "ind",
-            "regionName": "India",
-            "cities": [
-                {
-                    "cityName": "Mumbai", "airportCode": "bom"
-                },
-                {
-                    "cityName": "Chennai", "airportCode": "maa"
-                }
-            ]
-        },
-        "jap": {
-            "regionCode": "jap",
-            "regionName": "Japan",
-            "cities": [
-                {
-                    "cityName": "Tokyo", "airportCode": "nrt",
-                    "referrers": ["tyo", "tyo1"]
-                }
-            ]
-        },
-        "eas": {
-            "regionCode": "eas",
-            "regionName": "East Asia",
-            "cities": [
-                {
-                    "cityName": "Guangzhou", "airportCode": "can",
-                    "referrers": ["can", "canm", "cant", "canu"]
-                },
-                {
-                    "cityName": "Tianjin", "airportCode": "tsn",
-                    "referrers": ["tsn", "tsnm", "tsnt", "tsnu"]
-                },
-                {
-                    "cityName": "Seoul", "airportCode": "icn",
-                    "referrers": ["seo"]
-                },
-                {
-                    "cityName": "Singapore", "airportCode": "sin",
-                    "referrers": ["sgp"]
-                },
-                {
-                    "cityName": "Hong Kong", "airportCode": "hkg"
-                },
-                {
-
-                    "cityName": "PerfectWorld Cities", "airportCode": "pws",
-                    "referrers": [ "pwg", "pwj", "pwu", "pww", "pwz" ]
-                },
-                {
-
-                    "cityName": "Shanghai", "airportCode": "pvg",
-                    "referrers": [ "sha", "shb", "sham", "shat", "shau"]
-                }
-            ]
-        },
-        "mie": {
-            "regionCode": "mie",
-            "regionName": "Middle East",
-            "cities": [
-                {
-                    "cityName": "Dubai", "airportCode": "dxb"
-                }
-            ]
-        },
-        "afr": {
-            "regionCode": "afr",
-            "regionName": "Africa",
-            "cities": [
-                {
-                    "cityName": "Johannesburg", "airportCode": "jnb"
-                }
-            ]
-        },
-        "aus": {
-            "regionCode": "aus",
-            "regionName": "Australia",
-            "cities": [
-                {
-                    "cityName": "Sydney", "airportCode": "syd"
-                }
-            ]
+        {
+          "cityName": "Chennai", "airportCode": "maa"
         }
+        ]
+      },
+      "jap": {
+        "regionCode": "jap",
+        "regionName": "Japan",
+        "cities": [
+          {
+            "cityName": "Tokyo", "airportCode": "nrt",
+            "referrers": ["tyo", "tyo1"]
+          }
+        ]
+      },
+      "eas": {
+        "regionCode": "eas",
+        "regionName": "East Asia",
+        "cities": [
+          {
+            "cityName": "Guangzhou", "airportCode": "can",
+            "referrers": ["can", "canm", "cant", "canu"]
+          },
+          {
+            "cityName": "Tianjin", "airportCode": "tsn",
+            "referrers": ["tsn", "tsnm", "tsnt", "tsnu"]
+          },
+          {
+            "cityName": "Seoul", "airportCode": "icn",
+            "referrers": ["seo"]
+          },
+          {
+            "cityName": "Singapore", "airportCode": "sin",
+            "referrers": ["sgp"]
+          },
+          {
+            "cityName": "Hong Kong", "airportCode": "hkg"
+          },
+          {
+
+          "cityName": "PerfectWorld Cities", "airportCode": "pws",
+          "referrers": [ "pwg", "pwj", "pwu", "pww", "pwz" ]
+        },
+        {
+
+          "cityName": "Shanghai", "airportCode": "pvg",
+          "referrers": [ "sha", "shb", "sham", "shat", "shau"]
+        }
+        ]
+      },
+      "mie": {
+        "regionCode": "mie",
+        "regionName": "Middle East",
+        "cities": [
+          {
+            "cityName": "Dubai", "airportCode": "dxb"
+          }
+        ]
+      },
+      "afr": {
+        "regionCode": "afr",
+        "regionName": "Africa",
+        "cities": [
+          {
+            "cityName": "Johannesburg", "airportCode": "jnb"
+          }
+        ]
+      },
+      "aus": {
+        "regionCode": "aus",
+        "regionName": "Australia",
+        "cities": [
+          {
+            "cityName": "Sydney", "airportCode": "syd"
+          }
+        ]
+      }
     }
 }
