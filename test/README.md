@@ -3,8 +3,14 @@
 This folder contains the Dockerfile used to generate the GoRegion development and testing image.
 The purpose of this image is to enable people to test functionality of and iterate on GoRegion.
 
+## Pulling
+The dev environment image is available on Docker Hub, so you can easily clone it using:
+```bash
+docker pull skyspa/goregion-dev-env:latest
+```
+
 ## Building
-To turn the Dockerfile into an image you can run and test with, run the following command:
+To build the Dockerfile into an image manually, run the following command:
 ```bash
 docker build -t goregion-dev-env .
 ```
