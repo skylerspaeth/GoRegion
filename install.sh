@@ -1,8 +1,11 @@
 #!/bin/bash -e
 
+SCRIPT_PATH=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
 goregion_install () {
   echo "Installing GoRegion..."
-  (sudo mkdir -p /opt/goregion && sudo cp *.{py,json} /opt/goregion/) &&
+  sudo mkdir -p /opt/goregion && cd "$SCRIPT_PATH"
+  sudo cp $SCRIPT_PATH/*.{py,json} /opt/goregion/
   echo -e "\033[92mSuccessfully created and copied files to goregion directory.\033[0m";
   {
     echo "#!/bin/sh"
