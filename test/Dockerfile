@@ -5,7 +5,7 @@ RUN mkdir app
 WORKDIR /app
 
 RUN apt-get update
-RUN apt-get install -y git python3 iptables curl vim sudo
+RUN apt-get install -y sudo git python3 iptables curl iputils-ping vim
 RUN git clone https://github.com/skylerspaeth/goregion.git
 
 # setup vim config
