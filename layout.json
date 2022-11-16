@@ -109,12 +109,12 @@
         "regionCode": "ind",
         "regionName": "India",
         "cities": [
-        {
-          "cityName": "Mumbai", "airportCode": "bom"
-        },
-        {
-          "cityName": "Chennai", "airportCode": "maa"
-        }
+          {
+            "cityName": "Mumbai", "airportCode": "bom"
+          },
+          {
+            "cityName": "Chennai", "airportCode": "maa"
+          }
         ]
       },
       "jap": {
@@ -151,15 +151,13 @@
             "cityName": "Hong Kong", "airportCode": "hkg"
           },
           {
-
-          "cityName": "PerfectWorld Cities", "airportCode": "pws",
-          "referrers": [ "pwg", "pwj", "pwu", "pww", "pwz" ]
-        },
-        {
-
-          "cityName": "Shanghai", "airportCode": "pvg",
-          "referrers": [ "sha", "shb", "sham", "shat", "shau"]
-        }
+            "cityname": "perfectworld cities", "airportcode": "pws",
+            "referrers": [ "pwg", "pwj", "pwu", "pww", "pwz" ]
+          },
+          {
+            "cityName": "Shanghai", "airportCode": "pvg",
+            "referrers": [ "sha", "shb", "sham", "shat", "shau"]
+          }
         ]
       },
       "mie": {
