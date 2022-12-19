@@ -40,7 +40,7 @@ As of now, GoRegion only supports Linux-based systems. I haven't tested it exten
   - Permissions will be elevated as needed and you can run the program without sudo
 - Netfilter `iptables`
 - GNU `grep`
-  - Presumably alternative implementations of grep, for example what's found in busybox, may also have the needed flags (`-F` and `-x`)
+  - Presumably alternative implementations of grep may also have the needed flags (`-F` and `-x`)
 
 ### Portable Usage
 If you have any remotely standard Linux distibution, there is no setup other than cloning (or downloading a ZIP of) the repo and running the code. If you choose to run the program directly (`./goregion.py`), you'll need to first make it executable by typing the following in the repo directory:
