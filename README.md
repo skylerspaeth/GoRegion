@@ -16,6 +16,20 @@ GoRegion is a collection of Python scripts that allow you to select which Valve 
 
 <img src="https://raw.githubusercontent.com/skylerspaeth/goregion/master/doc/goregion.png" alt="Screenshot of app">
 
+> **Warning**
+> Currently, the SteamDatabase tracking repo hasn't been updated with the new Amsterdam relay addresses. This breaks queueing for specific regions with GoRegion, so a temporary workaround is to run the following script:
+> ```bash
+> #!/bin/bash
+> goregion # select jap
+> sudo iptables -A goregion -s 155.133.248.34/32 -j DROP
+> sudo iptables -A goregion -s 155.133.248.35/32 -j DROP
+> sudo iptables -A goregion -s 155.133.248.36/32 -j DROP
+> sudo iptables -A goregion -s 155.133.248.37/32 -j DROP
+> sudo iptables -A goregion -s 155.133.248.40/32 -j DROP
+> sudo iptables -A goregion -s 155.133.248.41/32 -j DROP
+> ```
+> This properly disables Amsterdam so you can queue other regions without the risk of getting queued for AMS or another EU server via it.
+
 ## Table of Contents
 - [Introduction](#introduction)
 - [Setup](#setup)
