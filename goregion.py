@@ -88,7 +88,7 @@ def main():
 
    ipTablesControl.reset()
 
-   with urllib.request.urlopen("https://raw.githubusercontent.com/SteamDatabase/SteamTracking/master/Random/NetworkDatagramConfig.json") as rawData:
+   with urllib.request.urlopen("https://api.steampowered.com/ISteamApps/GetSDRConfig/v1?appid=730") as rawData:
        jsonData = json.loads(rawData.read())
        allPops = jsonData["pops"]
        print(Colors.write("green", "Retrieved SteamDB NetworkDatagramConfig.json version {}.\n".format(jsonData.get("revision"))))
