@@ -12,23 +12,9 @@
 </p>
 
 ---
-GoRegion is a collection of Python scripts that allow you to select which Valve matchmaking server you queue for in CS:GO. What sets it apart from other similar programs is how it dynamically fetches server and IP lists from SteamDB, preventing the maintainer from having to add them manually every time Valve changes their addresses. This benefit is ultimately passed on to the end user, who doesn't have to update the app every time this happens.
+GoRegion is a collection of Python scripts that allow you to select which Valve matchmaking server you queue for in CS:GO. What sets it apart from other similar programs is how it dynamically fetches addresses from Valve's relay info API, preventing maintainers from having to add them manually every time Valve changes their addresses. This benefit is ultimately passed on to the end user, who doesn't have to update the app every time this happens.
 
 <img src="https://raw.githubusercontent.com/skylerspaeth/goregion/master/doc/goregion.png" alt="Screenshot of app">
-
-> **Warning**
-> Currently, the SteamDatabase tracking repo hasn't been updated with the new Amsterdam relay addresses. This breaks queueing for specific regions with GoRegion, so a temporary workaround is to run the following script:
-> ```bash
-> #!/bin/bash
-> goregion # select jap
-> sudo iptables -A goregion -s 155.133.248.34/32 -j DROP
-> sudo iptables -A goregion -s 155.133.248.35/32 -j DROP
-> sudo iptables -A goregion -s 155.133.248.36/32 -j DROP
-> sudo iptables -A goregion -s 155.133.248.37/32 -j DROP
-> sudo iptables -A goregion -s 155.133.248.40/32 -j DROP
-> sudo iptables -A goregion -s 155.133.248.41/32 -j DROP
-> ```
-> This properly disables Amsterdam so you can queue other regions without the risk of getting queued for AMS or another EU server via it.
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -43,7 +29,7 @@ GoRegion is a collection of Python scripts that allow you to select which Valve 
 ## Introduction
 The inspiration behind making GoRegion is the state of North American matchmaking in CS:GO. When every other game in the silver bracket is filled either cheaters or smurfs, trying to rank up is discouraging at best. While your mileage may vary, my experience shows that other regions (such as EU and Japan) are far more balanced and reasonable in their rank distributions.
 
-Programatically, the program works as a wrapper for iptables. It first gets the latest matchmaking IPs being [tracked by SteamDB](https://github.com/SteamDatabase/SteamTracking/blob/master/Random/NetworkDatagramConfig.json) to ensure that the calls to iptables use the most up-to-date information from Valve. An iptables chain is created for GoRegion to be able to append block rules to and destroy with ease.
+Programatically, the program works as a wrapper for iptables. It first gets the latest matchmaking IPs from Valve's [SDR API](https://api.steampowered.com/ISteamApps/GetSDRConfig/v1?appid=730) to ensure that the calls to iptables use the most up-to-date information. An iptables chain is created for GoRegion to be able to append block rules to and destroy with ease.
 
 ## Setup
 ### Requirements
