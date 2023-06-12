@@ -91,7 +91,7 @@ def main():
    with urllib.request.urlopen("https://api.steampowered.com/ISteamApps/GetSDRConfig/v1?appid=730") as rawData:
        jsonData = json.loads(rawData.read())
        allPops = jsonData["pops"]
-       print(Colors.write("green", "Retrieved SteamDB NetworkDatagramConfig.json version {}.\n".format(jsonData.get("revision"))))
+       print(Colors.write("green", "Retrieved SDR config version {}.\n".format(jsonData.get("revision"))))
 
        with open(NETWORK_DIAGRAM_PATH, "r") as networkDiagramData:
            networkDiagramJSON = json.loads(networkDiagramData.read())
