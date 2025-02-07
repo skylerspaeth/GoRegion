@@ -4,6 +4,12 @@ import sys
 if (sys.version_info[0] < 3):
     raise Exception("This script requires Python 3, while you ran it with {}.{}.".format(sys.version_info[0], sys.version_info[1]))
 
+#ensure supported OS type
+import platform
+os_type = platform.system()
+if os_type not in ["Windows", "Linux"]:
+    raise Exception("Unsupported OS type '{}', aborting.".format(os_type))
+
 #goregion version and release date metadata
 __version__ = "0.2.0"
 __date__ = "19 January 2022"
@@ -65,16 +71,33 @@ class ipTablesControl:
         print(Colors.write("green", "IP tables rules appended, hosts successfully blocked."))
 
     @classmethod
-    def allow(cls, addresses):
-        print("Unblocking the following addresses:", ", ".join(addresses))
-        for address in addresses:
-            cls.callIpTables("-D goregion -s {} -j DROP".format(address))
-
-    @classmethod 
     def reset(cls):
         print("Resetting all goregion rules...")
         print(Colors.write("cyan", "Successfully reset chain.") if cls.callIpTables("-F goregion") == 0 else Colors.write("fail", "Error resetting chain."))
 
+#netsh advfirewall interface class
+class netShControl:
+    @staticmethod
+    def callNetSh(args):
+        return os.system("netsh advfirewall firewall {}".format(args))
+
+    @classmethod
+    def block(cls, addresses):
+        print(Colors.write("blue", "Blocking ") \
+        + Colors.write("blue", Colors.write("bold", str(len(addresses)))) \
+        + Colors.write("blue", " addresses not contained within selected region..."))
+        for address in addresses:
+            validate(address)
+        exitCode = cls.callNetSh("add rule name=goregion dir=out action=block remoteip={}".format(",".join(addresses)))
+        if exitCode != 0:
+            raise Exception("Error while trying to add block rule for address list: {}. ".format(",".join(addresses)) \
+            + "There's likely an issue with netsh or the addresses and we don't want to break anything by continuing.")
+        print(Colors.write("green", "Netsh rules appended, hosts successfully blocked."))
+
+    @classmethod
+    def reset(cls):
+        print("Resetting all goregion rules...")
+        print(Colors.write("cyan", "Successfully deleted goregion rule.") if cls.callNetSh("delete rule name=goregion") == 0 else Colors.write("fail", "Error resetting chain."))
 
 def main():
    #check if iptables chain exists and create it if not
